@@ -19,24 +19,6 @@ blocks:
             - pip download --cache-dir .pip_cache -r requirements.txt
             - cache store
     dependencies: []
-  - name: Run Unit Tests
-    task:
-      prologue:
-        commands:
-          - sem-version python 3.7
-          - sem-service start mysql
-          - checkout
-          - cache restore
-          - pip install -r requirements.txt --cache-dir .pip_cache
-      jobs:
-        - name: Model Test
-          commands:
-            - python manage.py test tasks.tests.test_models
-        - name: View Test
-          commands:
-            - python manage.py test tasks.tests.test_views
-    dependencies:
-      - Install Dependencies
   - name: Run Browser Tests
     task:
       env_vars:
@@ -57,7 +39,7 @@ blocks:
           commands:
             - python manage.py test tasks.tests.test_browser
     dependencies:
-      - Run Unit Tests
+      - Install Dependencies
   - name: Run Security Tests
     task:
       jobs:
