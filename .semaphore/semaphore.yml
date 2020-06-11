@@ -19,27 +19,6 @@ blocks:
             - pip download --cache-dir .pip_cache -r requirements.txt
             - cache store
     dependencies: []
-  - name: Run Browser Tests
-    task:
-      env_vars:
-        - name: DB_NAME
-          value: pydjango
-      prologue:
-        commands:
-          - sem-version python 3.7
-          - sem-service start mysql
-          - sudo apt-get install -y -qq mysql-client
-          - mysql --host=0.0.0.0 -uroot -e "create database $DB_NAME"
-          - checkout
-          - cache restore
-          - pip install -r requirements.txt --cache-dir .pip_cache
-          - nohup python manage.py runserver &
-      jobs:
-        - name: Browser Test
-          commands:
-            - python manage.py test tasks.tests.test_browser
-    dependencies:
-      - Install Dependencies
   - name: Run Security Tests
     task:
       jobs:
@@ -51,4 +30,4 @@ blocks:
             - pip install -r requirements.txt --cache-dir .pip_cache
             - python manage.py check --deploy --fail-level ERROR
     dependencies:
-      - Run Browser Tests
+      - Install Dependencies
