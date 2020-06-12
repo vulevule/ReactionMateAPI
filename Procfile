@@ -1,1 +1,1 @@
-web: gunicorn reactionmateapi.wsgi --log-file -
+web: gunicorn ReactionTimeApp.wsgi --log-file -
