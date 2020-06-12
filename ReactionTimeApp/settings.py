@@ -20,7 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '30-j#wp_-6x98)3aqldbv^^^zn)6cb9_w44*0vvqkn*3wi$+)c'
+SECRET_KEY = os.environ.get('SECRET_KEY', '30-j#wp_-6x98)3aqldbv^^^zn)6cb9_w44*0vvqkn*3wi$+)c')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -137,3 +138,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True
