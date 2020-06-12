@@ -1,0 +1,1 @@
+web: gunicorn reactionmate.wsgi --log-file -
